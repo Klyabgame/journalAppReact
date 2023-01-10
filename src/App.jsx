@@ -1,10 +1,11 @@
 import React from 'react'
+import { RouterPrincipal } from './router/RouterPrincipal'
 
 export const App = () => {
   
   return (
     <>
-        <h1>app</h1>
+        <RouterPrincipal/>
     </>
   )
 }
