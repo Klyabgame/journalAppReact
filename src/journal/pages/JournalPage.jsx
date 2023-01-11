@@ -1,12 +1,14 @@
 
 import { Link } from "react-router-dom";
+import { DataView } from "../view/dataView";
+
 export const JournalPage = () => {
   return (
     <>
-      <div className="flex">
+      <div className="flex ">
 
-          <div className=" h-screen w-1/3 border-2 border-slate-400">
-            <nav>
+          <div className=" w-1/3 border-2 border-slate-400 ">
+            <nav className="">
               <h1 className=" uppercase font-bold p-2 border-b-2 border-slate-400">franz schwartz</h1>
               
               <ul>
@@ -20,13 +22,13 @@ export const JournalPage = () => {
           </div>
 
 
-          <div className="container  h-screen ">
+          <div className="container  ">
               <div className="container flex justify-between w-full bg-purple-900 h-10 border-2 border-purple-800 items-center p-2 py-5">
                 <h1 className="font-bold text-white">JournalApp</h1>
-                <Link to={'/auth/login'}><i class="fa-solid fa-right-from-bracket mr-2 text-white"></i></Link>
+                <Link to={'/auth/login'}><i className="fa-solid fa-right-from-bracket mr-2 text-white"></i></Link>
               </div>
-              <div className="container  p-4 h-max ">
-                <div className="p ">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cumque beatae tempora ex odit perferendis? Saepe laboriosam accusantium molestias dolorum tempore. Voluptas fugit exercitationem expedita.</div>
+              <div className="container  p-4  h-screen">
+                <DataView/>
               </div>
           </div>
 
