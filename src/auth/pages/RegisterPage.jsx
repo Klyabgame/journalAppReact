@@ -1,24 +1,56 @@
 import React from 'react'
 import { Link } from "react-router-dom";
+import { useForm } from '../../hooks/useForm';
+
+const formaData={
+    email:'franzito@gmail.com',
+    password:12345,
+    displayName:'franz schwartz'
+}
 
 export const RegisterPage = () => {
+    const validateForm={
+        email:[(valid)=>valid.includes('@'),'el email debe contener un @'],
+        password:[(valid)=>valid.length <=6,'el password debe contener 6 caracteres'],
+        displayName:[(valid)=>valid.length<=1,'el name debe contener mas de 1 caracter'],
+    }
+    const {displayName,email,password,onInputChange,formState}=useForm(formaData,validateForm);
+
+    const onSubmitRegister=(e)=>{
+        e.preventDefault();
+        console.log(formState);
+    }
+
+    
   return (
     <div className="container bg-purple-800 max-w-full h-screen flex justify-center items-center">
             <div className="container bg-white drop-shadow-2xl w-1/2  xl:w-1/3 rounded-lg">
-                <form action="" className='p-2 '>
+                <form onSubmit={onSubmitRegister} className='p-2 '>
                     <h1 className=' ml-2'>Register</h1>
                     <hr />
                     <div className="mt-4 flex gap-2 justify-center">
                         <label className='flex items-center' htmlFor="">NOMBRE :</label>
-                        <input className='w-2/3 p-2 border-2 border-bg-blue-500 rounded-lg' type="text" placeholder='escriba su nombre' />
+                        <input 
+                        name='displayName'
+                        value={displayName}
+                        onChange={onInputChange}
+                        className='w-2/3 p-2 border-2 border-bg-blue-500 rounded-lg' type="text" placeholder='escriba su nombre' />
                     </div>
                    <div className="flex gap-2 mt-4 justify-center">
                         <label className=' flex items-center' htmlFor="">CORREO :</label>
-                        <input className='w-2/3 p-2 border-2 border-bg-blue-500 rounded-lg   ' type="text" placeholder='escriba su correo' />
+                        <input 
+                        name='email'
+                        value={email}
+                        onChange={onInputChange}
+                        className='w-2/3 p-2 border-2 border-bg-blue-500 rounded-lg   ' type="text" placeholder='escriba su correo' />
                    </div>
                     <div className="mt-4 flex gap-2 justify-center ">
                         <label className='flex items-center ' htmlFor="">PASSWORD :</label>
-                        <input className='w-2/3 p-2 border-2 border-bg-blue-500 rounded-lg mr-5' type="text" placeholder='escriba su contraseña' />
+                        <input 
+                        name='password'
+                        value={password}
+                        onChange={onInputChange}
+                        className='w-2/3 p-2 border-2 border-bg-blue-500 rounded-lg mr-5' type="text" placeholder='escriba su contraseña' />
                     </div>
                     <div className="flex gap-8 justify-center  p-2 mt-4">
                         <button className='bg-purple-700 text-white p-2 rounded-lg hover:bg-purple-900'>CREAR CUENTA</button>
