@@ -1,11 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { useForm } from '../../hooks/useForm'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { checkingAutentication, startGoogleAutentication } from '../../store/auth/thunks'
+import { useMemo } from 'react'
 
 export const LoginPage = () => {
 
+    const {status}= useSelector(state=>state.auth)
     const dispatch=useDispatch();
     const {email,password,onInputChange}=useForm({
         email:'franzito@gmail.com',
@@ -14,12 +16,15 @@ export const LoginPage = () => {
 
     const onsubmitt=(e)=>{
         e.preventDefault();
-        console.log(email,password);
-        dispatch(checkingAutentication(email,password));
+        //console.log(email,password);
+        //dispatch(checkingAutentication(email,password));
     }
     const onGoogleSignIn=()=>{
         dispatch(startGoogleAutentication(email,password));
     }
+
+    const isAutenticating=useMemo(()=>status==='checking',[status]);
+
   return (
         <div className="container bg-purple-800 max-w-full h-screen flex justify-center items-center">
             <div className="container bg-white drop-shadow-2xl w-1/2 lg:w-1/3  rounded-lg ">
@@ -34,8 +39,8 @@ export const LoginPage = () => {
                         <input className='w-2/3 p-2 border-2 border-bg-blue-500 rounded-lg' type="text" placeholder='escriba su contraseña' name='password' value={password} onChange={onInputChange}/>
                     </div>
                     <div className="flex gap-8 justify-center  p-2 mt-4">
-                        <Link to={'/'}  className='bg-purple-700 text-white p-2 rounded-lg hover:bg-purple-900 w-1/3'>INGRESAR</Link>
-                        <button type='submit' className='bg-purple-700 text-white p-2 rounded-lg hover:bg-purple-900 w-1/3' >GOOGLE</button>
+                        <Link disabled={isAutenticating} to={'/'}  className='bg-purple-700 text-white p-2 rounded-lg hover:bg-purple-900 w-1/3'>INGRESAR</Link>
+                        <button disabled={isAutenticating} onClick={()=>onGoogleSignIn()} type='submit' className='bg-purple-700 text-white p-2 rounded-lg hover:bg-purple-900 w-1/3' >GOOGLE</button>
                         
                     </div>
                     <div className="flex my-2 justify-end mr-2">
