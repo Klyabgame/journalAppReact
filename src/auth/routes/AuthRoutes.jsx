@@ -4,6 +4,8 @@ import { LoginPage } from '../pages/LoginPage'
 import { RegisterPage } from '../pages/RegisterPage.jsx'
 
 export const AuthRoutes = () => {
+  
+  
   return (
     <Routes>
         <Route path='login' element={<LoginPage/>}/>

@@ -1,30 +1,43 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from "react-router-dom";
 import { useForm } from '../../hooks/useForm';
+import { startCreatingUserWithEmailPassword } from '../../store/auth/thunks';
 
 const formaData={
     email:'franzito@gmail.com',
-    password:12345,
+    password:123456,
     displayName:'franz schwartz'
 }
 
 export const RegisterPage = () => {
     const validateForm={
         email:[(valid)=>valid.includes('@'),'el email debe contener un @'],
-        password:[(valid)=>valid.length <=6,'el password debe contener 6 caracteres'],
-        displayName:[(valid)=>valid.length<=1,'el name debe contener mas de 1 caracter'],
+        password:[(valid)=>valid.length >=6,'el password debe contener 6 caracteres'],
+        displayName:[(valid)=>valid.length>=1,'el name debe contener mas de 1 caracter'],
     }
-    const {displayName,email,password,onInputChange,formState}=useForm(formaData,validateForm);
+    //formactive nos servira cuando intentemos entrar al formulario y veamos las casillas activas.
+    const [formActive, setformActive] = useState(false);
+    const {status,errorMessage}=useSelector((state)=>state.auth);
+    const isCheckingAuthentication=useMemo(() => status=='checking', [status])
+
+    const {displayName,email,password,onInputChange,formState,isFormValid,displayNameValid,emailValid,passwordValid}=useForm(formaData,validateForm);
+    const dispatch=useDispatch();
+    /* console.log(displayNameValid); */
 
     const onSubmitRegister=(e)=>{
         e.preventDefault();
+        if(!isFormValid) return;
         console.log(formState);
+        dispatch(startCreatingUserWithEmailPassword(formState));
     }
 
     
   return (
     <div className="container bg-purple-800 max-w-full h-screen flex justify-center items-center">
             <div className="container bg-white drop-shadow-2xl w-1/2  xl:w-1/3 rounded-lg">
+                <h1>FormValid: {isFormValid? 'valido':'incorrecto'}</h1>
                 <form onSubmit={onSubmitRegister} className='p-2 '>
                     <h1 className=' ml-2'>Register</h1>
                     <hr />

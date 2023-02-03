@@ -1,8 +1,14 @@
 
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { startLogout } from "../../store/auth/thunks";
 import { DataView } from "../view/DataView";
 
 export const JournalPage = () => {
+  const dispatch=useDispatch();
+  const onLogout=()=>{
+    dispatch(startLogout());
+  }
   return (
     <>
       <div className="flex ">
@@ -25,7 +31,7 @@ export const JournalPage = () => {
           <div className="container  ">
               <div className="container flex justify-between w-full bg-purple-900 h-10 border-2 border-purple-800 items-center p-2 py-5">
                 <h1 className="font-bold text-white">JournalApp</h1>
-                <Link to={'/auth/login'}><i className="fa-solid fa-right-from-bracket mr-2 text-white"></i></Link>
+                <button onClick={()=>onLogout()}><i className="fa-solid fa-right-from-bracket mr-2 text-white"></i></button>
               </div>
               <div className="container p-4  h-screen">
                 <DataView/>

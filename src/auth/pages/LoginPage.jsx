@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { useForm } from '../../hooks/useForm'
 import { useDispatch, useSelector } from 'react-redux'
-import { checkingAutentication, startGoogleAutentication } from '../../store/auth/thunks'
+import { checkingAutentication, startGoogleAutentication, startLoginWithEmailPassword } from '../../store/auth/thunks'
 import { useMemo } from 'react'
 
 export const LoginPage = () => {
@@ -11,13 +11,12 @@ export const LoginPage = () => {
     const dispatch=useDispatch();
     const {email,password,onInputChange}=useForm({
         email:'franzito@gmail.com',
-        password:12345,
+        password:123456,
     })
 
     const onsubmitt=(e)=>{
         e.preventDefault();
-        //console.log(email,password);
-        //dispatch(checkingAutentication(email,password));
+        dispatch(startLoginWithEmailPassword({email,password}));
     }
     const onGoogleSignIn=()=>{
         dispatch(startGoogleAutentication(email,password));
@@ -39,8 +38,8 @@ export const LoginPage = () => {
                         <input className='w-2/3 p-2 border-2 border-bg-blue-500 rounded-lg' type="text" placeholder='escriba su contraseña' name='password' value={password} onChange={onInputChange}/>
                     </div>
                     <div className="flex gap-8 justify-center  p-2 mt-4">
-                        <button disabled={isAutenticating} className='bg-purple-700 disabled:bg-gray-400 text-white p-2 rounded-lg hover:bg-purple-900 w-1/3'>INGRESAR</button>
-                        <button disabled={isAutenticating} onClick={()=>onGoogleSignIn()} type='submit' className='bg-purple-700 disabled:bg-gray-400 text-white p-2 rounded-lg hover:bg-purple-900 w-1/3' >GOOGLE</button>
+                        <button type='submit' disabled={isAutenticating} className='bg-purple-700 disabled:bg-gray-400 text-white p-2 rounded-lg hover:bg-purple-900 w-1/3'>INGRESAR</button>
+                        <button type='submit' disabled={isAutenticating} onClick={()=>onGoogleSignIn()}  className='bg-purple-700 disabled:bg-gray-400 text-white p-2 rounded-lg hover:bg-purple-900 w-1/3' >GOOGLE</button>
                         
                     </div>
                     <div className="flex my-2 justify-end mr-2">
