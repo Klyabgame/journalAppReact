@@ -1,4 +1,5 @@
 import React from 'react'
+import { AddButtonNote } from './AddButtonNote';
 
 export const DataView = () => {
   const urlImg=`../../../public/img/comida.jpg`;
@@ -31,9 +32,7 @@ export const DataView = () => {
               <img src={urlImg} alt="comida" />
               <img src={urlImg} alt="comida" />
             </div>
-            <div className="flex justify-end w-11/12 mt-2 mr-28">
-              <button className='bg-red-500 w-20 h-20 rounded-full hover:text-white'><i class="fa-solid fa-plus"></i></button>
-            </div>
+            <AddButtonNote/>
             <div className="">imageGalery</div>
     </div>
   )

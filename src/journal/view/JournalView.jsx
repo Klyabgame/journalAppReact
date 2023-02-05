@@ -1,4 +1,5 @@
 import React from 'react'
+import { AddButtonNote } from './AddButtonNote'
 
 export const JournalView = () => {
   return (
@@ -6,6 +7,7 @@ export const JournalView = () => {
         <div className="container bg-purple-900 rounded-lg h-full flex flex-col justify-center items-center ">
             <i className="fa-regular fa-star fa-4x text-white mb-2"></i>
             <p className='text-white'>Selecciona o crea una entrada</p>
+            <AddButtonNote/>
         </div>
     </>
   )
