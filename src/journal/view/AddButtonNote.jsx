@@ -15,7 +15,7 @@ export const AddButtonNote = () => {
   return (
     <>
         <div className="flex justify-end w-11/12 mt-2 mr-28">
-              <button onClick={onNewNote} disabled={isnewNoteStatus} className=' disabled:bg-gray-500 bg-red-500 w-20 h-20 rounded-full hover:text-white'><i class="fa-solid fa-plus"></i></button>
+              <button onClick={onNewNote} disabled={isnewNoteStatus} className=' disabled:bg-gray-500 bg-red-500 w-20 h-20 rounded-full hover:text-white'><i className="fa-solid fa-plus"></i></button>
         </div>
     </>
   )
