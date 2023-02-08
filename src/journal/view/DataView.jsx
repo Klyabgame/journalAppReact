@@ -4,10 +4,12 @@ import { useForm } from '../../hooks/useForm';
 import { useDispatch, useSelector } from 'react-redux';
 import { useMemo } from 'react';
 import { startActiveNote, startEditNote } from '../../store/journal/thunks';
+import Swal from 'sweetalert2';
+import 'sweetalert2/dist/sweetalert2.css'
 
 export const DataView = () => {
   const urlImg=`../../../public/img/comida.jpg`;
-  const {active:note} = useSelector(state=>state.journal);
+  const {active:note,messageSaved} = useSelector(state=>state.journal);
   const dispatch=useDispatch();
   const {title,id,body,date,onInputChange,formState} = useForm(note);
 
@@ -19,6 +21,15 @@ export const DataView = () => {
   useEffect(() => {
     dispatch(startActiveNote(formState));
   }, [formState])
+
+  useEffect(() => {
+    if (messageSaved.length > 0) {
+      console.log('si llego');
+      Swal.fire('nota actualizada', messageSaved,'success')
+    }
+   
+  }, [messageSaved])
+  
   
   const onNewEditNote=()=>{
     dispatch(startEditNote());
