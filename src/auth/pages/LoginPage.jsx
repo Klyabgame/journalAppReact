@@ -5,14 +5,16 @@ import { useDispatch, useSelector } from 'react-redux'
 import { checkingAutentication, startGoogleAutentication, startLoginWithEmailPassword } from '../../store/auth/thunks'
 import { useMemo } from 'react'
 
+const initalform={
+    email:'franzito@gmail.com',
+    password:123456,
+}
+
 export const LoginPage = () => {
 
     const {status}= useSelector(state=>state.auth)
     const dispatch=useDispatch();
-    const {email,password,onInputChange}=useForm({
-        email:'franzito@gmail.com',
-        password:123456,
-    })
+    const {email,password,onInputChange}=useForm(initalform)
 
     const onsubmitt=(e)=>{
         e.preventDefault();
