@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-const da={
+/* const da={
   active:{
     id:13132,
     title:'',
@@ -8,7 +8,7 @@ const da={
     date:12323,
     imageUrls:[]
   }
-}
+} */
 
 const initialState = {
   isSaving:false,
@@ -56,11 +56,32 @@ export const journalSlice = createSlice({
 
       state.messageSaved=`${payload.title} a sido actualizado`;
     },
+    setPhotosToActiveNotes:(state,{payload})=>{
+        state.active.imageUrls=[...state.active.imageUrls,...payload];
+        state.isSaving=false;
+    },
+    clearNotesLogout:(state)=>{
+      state.isSaving=false,
+      state.messageSaved='',
+      state.notes=[],
+      state.active=null
+    }
+    ,
     deleteNoteById:(state,{payload})=>{
-
+        state.active=null;
+        state.notes=state.notes.filter((note)=>note.id !== payload);
     }
     
   },
 })
 
-export const { savingNewNote,addNewEmptyNote, setActiveNote,setNotes,setSaving,updateNote,deleteNoteById } = journalSlice.actions;
+export const { 
+  savingNewNote,
+  addNewEmptyNote,
+   setActiveNote,
+   setNotes,
+   setSaving,
+   updateNote,
+   setPhotosToActiveNotes,
+   clearNotesLogout,
+   deleteNoteById } = journalSlice.actions;
